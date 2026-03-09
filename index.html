@@ -211,7 +211,7 @@
 
     .grid-2 {
       display: grid;
-      grid-template-columns: 1.04fr 0.96fr;
+      grid-template-columns: 1fr 1.08fr;
       gap: 26px;
       align-items: start;
       width: 100%;
@@ -249,10 +249,16 @@
       font-size: clamp(15px, 1.3vw, 17px);
     }
 
+    .machine-info-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
     .machine-stage {
       width: 100%;
-      height: 100%;
-      min-height: 500px;
+      min-height: 520px;
+      height: 62vh;
       border-radius: 28px;
       overflow: hidden;
       position: relative;
@@ -264,40 +270,32 @@
       box-shadow: 0 20px 60px rgba(0,0,0,0.35);
     }
 
-    .machine-overlay {
-      position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 12px;
+    .machine-panel {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end;
-      align-items: stretch;
-      gap: 10px;
-      z-index: 2;
-      pointer-events: none;
+      gap: 12px;
     }
 
-    .legend {
-      background: rgba(0,0,0,0.32);
-      border: 1px solid rgba(255,255,255,0.1);
+    .machine-status-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 20px;
+      padding: 18px;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.24);
       backdrop-filter: blur(8px);
-      border-radius: 18px;
-      padding: 14px 16px;
-      max-width: 100%;
     }
 
-    .legend h4 {
+    .machine-status-card h4 {
       margin: 0 0 8px;
-      font-size: 18px;
+      font-size: 21px;
       color: #b8f28a;
     }
 
-    .legend p {
+    .machine-status-card p {
       margin: 0;
-      font-size: 15px;
-      line-height: 1.45;
-      color: rgba(255,255,255,0.9);
+      font-size: 16px;
+      line-height: 1.55;
+      color: rgba(255,255,255,0.92);
     }
 
     .step-indicator {
@@ -479,7 +477,8 @@
       }
 
       .machine-stage {
-        min-height: 430px;
+        min-height: 440px;
+        height: 54vh;
       }
     }
 
@@ -521,30 +520,18 @@
       }
 
       .machine-stage {
-        min-height: 420px;
-        height: 58vh;
-        max-height: 620px;
+        min-height: 360px;
+        height: 46vh;
+        max-height: 520px;
         border-radius: 22px;
       }
 
-      .machine-overlay {
-        left: 10px;
-        right: 10px;
-        bottom: 10px;
-        gap: 8px;
-      }
-
-      .legend {
-        padding: 12px;
-        border-radius: 14px;
-      }
-
-      .legend h4 {
-        font-size: 15px;
-      }
-
-      .legend p {
-        font-size: 13px;
+      .process-item,
+      .card,
+      .benefit,
+      .machine-status-card {
+        padding: 16px;
+        border-radius: 18px;
       }
 
       .step-indicator {
@@ -554,13 +541,6 @@
       .step-pill {
         font-size: 11px;
         padding: 8px 10px;
-      }
-
-      .process-item,
-      .card,
-      .benefit {
-        padding: 16px;
-        border-radius: 18px;
       }
 
       .footer-nav {
@@ -600,21 +580,21 @@
       }
 
       .machine-stage {
-        min-height: 400px;
-        height: 60vh;
-      }
-
-      .legend {
-        width: 100%;
-      }
-
-      .step-indicator {
-        width: 100%;
+        min-height: 320px;
+        height: 40vh;
       }
 
       .section-text,
       .desc {
         line-height: 1.5;
+      }
+
+      .machine-status-card h4 {
+        font-size: 18px;
+      }
+
+      .machine-status-card p {
+        font-size: 14px;
       }
     }
 
@@ -630,7 +610,7 @@
 
       .machine-stage {
         min-height: 300px;
-        height: 62vh;
+        height: 56vh;
       }
 
       .title {
@@ -650,7 +630,8 @@
       .team-box,
       .card,
       .benefit,
-      .process-item {
+      .process-item,
+      .machine-status-card {
         padding: 14px;
       }
     }
@@ -662,10 +643,8 @@
   <script type="text/babel">
     const { useEffect, useRef, useState } = React;
 
-    function Machine3D() {
+    function Machine3D({ onStepChange }) {
       const mountRef = useRef(null);
-      const statusRef = useRef(null);
-      const pillsRef = useRef([]);
 
       useEffect(() => {
         const container = mountRef.current;
@@ -681,7 +660,7 @@
           0.1,
           1000
         );
-        camera.position.set(0, isMobile ? 3.8 : 3.1, isMobile ? 13.5 : 12);
+        camera.position.set(0, isMobile ? 3.7 : 3.0, isMobile ? 13.4 : 11.5);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -689,19 +668,19 @@
         renderer.shadowMap.enabled = true;
         container.appendChild(renderer.domElement);
 
-        const ambient = new THREE.AmbientLight(0xffffff, 0.9);
+        const ambient = new THREE.AmbientLight(0xffffff, 0.92);
         scene.add(ambient);
 
-        const dir = new THREE.DirectionalLight(0xfff3d6, 1.5);
+        const dir = new THREE.DirectionalLight(0xfff3d6, 1.55);
         dir.position.set(6, 10, 8);
         dir.castShadow = true;
         scene.add(dir);
 
-        const rim = new THREE.PointLight(0x7cb342, 1.25, 50);
+        const rim = new THREE.PointLight(0x7cb342, 1.3, 50);
         rim.position.set(-6, 5, 4);
         scene.add(rim);
 
-        const gold = new THREE.PointLight(0xf9a825, 0.75, 40);
+        const gold = new THREE.PointLight(0xf9a825, 0.82, 40);
         gold.position.set(5, 2, 6);
         scene.add(gold);
 
@@ -730,7 +709,7 @@
         scene.add(platform);
 
         const machine = new THREE.Group();
-        machine.position.y = isMobile ? 0.85 : 0.45;
+        machine.position.y = isMobile ? 0.95 : 0.55;
         scene.add(machine);
 
         const metalMat = new THREE.MeshStandardMaterial({
@@ -808,7 +787,7 @@
         logoPlate.position.set(0, 0.68, 1.75);
         machine.add(logoPlate);
 
-        const logoGlow = new THREE.PointLight(0x8bc34a, 0.9, 8);
+        const logoGlow = new THREE.PointLight(0x8bc34a, 0.95, 8);
         logoGlow.position.set(0, 0.68, 2.5);
         scene.add(logoGlow);
 
@@ -920,26 +899,7 @@
 
         let frame = 0;
         let destroyed = false;
-
-        function updateStepPills(step) {
-          pillsRef.current.forEach((el, index) => {
-            if (!el) return;
-            if (index === step) el.classList.add('active');
-            else el.classList.remove('active');
-          });
-        }
-
-        function updateStatus(step) {
-          if (!statusRef.current) return;
-          const messages = [
-            "1. Coleta: as cascas e restos orgânicos entram pelo funil superior.",
-            "2. Trituração: as lâminas giram mais rápido e quebram os resíduos.",
-            "3. Formação do adubo: o material triturado é processado internamente.",
-            "4. Saída: o adubo vai para a gaveta e pode ser usado no plantio."
-          ];
-          statusRef.current.innerText = messages[step];
-          updateStepPills(step);
-        }
+        let lastStep = -1;
 
         function animate() {
           if (destroyed) return;
@@ -948,7 +908,7 @@
 
           machine.rotation.y = Math.sin(t * 0.55) * 0.3;
           machine.rotation.x = Math.sin(t * 0.7) * 0.03;
-          machine.position.y = (isMobile ? 0.85 : 0.45) + Math.sin(t * 1.25) * 0.05;
+          machine.position.y = (isMobile ? 0.95 : 0.55) + Math.sin(t * 1.25) * 0.05;
           drawer.position.z = Math.sin(t * 0.9) * 0.08;
 
           redBtn.scale.y = 1 + Math.sin(t * 5) * 0.1;
@@ -962,7 +922,10 @@
           else if (cycle < 690) step = 2;
           else step = 3;
 
-          updateStatus(step);
+          if (step !== lastStep) {
+            lastStep = step;
+            onStepChange?.(step);
+          }
 
           fruits.forEach((fruit, i) => {
             if (step === 0) {
@@ -1052,39 +1015,40 @@
           }
           renderer.dispose();
         };
-      }, []);
+      }, [onStepChange]);
 
       return (
         <div className="machine-stage">
           <div ref={mountRef} style={{ width: '100%', height: '100%' }}></div>
           <div className="shine"></div>
-          <div className="machine-overlay">
-            <div className="legend">
-              <h4>Simulação da máquina AgroTerra</h4>
-              <p ref={statusRef}>
-                1. Coleta: as cascas e restos orgânicos entram pelo funil superior.
-              </p>
-            </div>
-            <div className="step-indicator">
-              {["COLETA", "TRITURAÇÃO", "ADUBO", "PLANTIO"].map((label, i) => (
-                <div
-                  key={label}
-                  ref={(el) => pillsRef.current[i] = el}
-                  className={`step-pill ${i === 0 ? 'active' : ''}`}
-                >
-                  {label}
-                </div>
-              ))}
-            </div>
-          </div>
         </div>
       );
     }
 
     function App() {
       const [slide, setSlide] = useState(0);
+      const [machineStep, setMachineStep] = useState(0);
       const touchStartX = useRef(null);
       const touchEndX = useRef(null);
+
+      const stepTexts = [
+        {
+          title: "Coleta dos resíduos",
+          text: "As cascas e restos orgânicos entram pelo funil superior da máquina para iniciar o processo."
+        },
+        {
+          title: "Trituração interna",
+          text: "As lâminas giram rapidamente e quebram os resíduos em partes menores, facilitando o reaproveitamento."
+        },
+        {
+          title: "Formação do adubo",
+          text: "O material triturado é processado internamente e se transforma em base para o adubo orgânico."
+        },
+        {
+          title: "Saída para plantio",
+          text: "O adubo vai para a gaveta e pode ser usado no plantio, enriquecendo o solo e ajudando no crescimento das plantas."
+        }
+      ];
 
       const slides = [
         {
@@ -1206,12 +1170,29 @@
                 </div>
 
                 <div className="grid-2">
-                  <div>
-                    <div className="section-title">Como a máquina funciona?</div>
-                    <div className="section-text">
-                      A máquina AgroTerra recebe cascas de frutas e restos orgânicos pelo funil superior.
-                      Em seguida, lâminas internas trituram esse material em pedaços menores, acelerando o processo de decomposição.
-                      Depois disso, o composto orgânico é coletado em uma gaveta, pronto para ser usado como adubo.
+                  <div className="machine-info-wrap">
+                    <div>
+                      <div className="section-title">Como a máquina funciona?</div>
+                      <div className="section-text">
+                        A máquina AgroTerra recebe cascas de frutas e restos orgânicos pelo funil superior.
+                        Depois, as lâminas internas trituram esse material, facilitando o reaproveitamento.
+                        No final, o composto orgânico sai pela gaveta e pode ser usado como adubo no plantio.
+                      </div>
+                    </div>
+
+                    <div className="machine-panel">
+                      <div className="machine-status-card">
+                        <h4>{stepTexts[machineStep].title}</h4>
+                        <p>{stepTexts[machineStep].text}</p>
+                      </div>
+
+                      <div className="step-indicator">
+                        {["COLETA", "TRITURAÇÃO", "ADUBO", "PLANTIO"].map((label, i) => (
+                          <div key={label} className={`step-pill ${machineStep === i ? 'active' : ''}`}>
+                            {label}
+                          </div>
+                        ))}
+                      </div>
                     </div>
 
                     <div className="process-list">
@@ -1238,7 +1219,7 @@
                     </div>
                   </div>
 
-                  <Machine3D />
+                  <Machine3D onStepChange={setMachineStep} />
                 </div>
               </div>
             </div>
