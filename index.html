@@ -660,7 +660,7 @@
           0.1,
           1000
         );
-        camera.position.set(0, isMobile ? 3.7 : 3.0, isMobile ? 13.4 : 11.5);
+        camera.position.set(0.4, isMobile ? 3.8 : 3.15, isMobile ? 14.2 : 12.4);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -668,233 +668,297 @@
         renderer.shadowMap.enabled = true;
         container.appendChild(renderer.domElement);
 
-        const ambient = new THREE.AmbientLight(0xffffff, 0.92);
+        const ambient = new THREE.AmbientLight(0xffffff, 0.95);
         scene.add(ambient);
 
-        const dir = new THREE.DirectionalLight(0xfff3d6, 1.55);
+        const dir = new THREE.DirectionalLight(0xfff3d6, 1.6);
         dir.position.set(6, 10, 8);
         dir.castShadow = true;
         scene.add(dir);
 
-        const rim = new THREE.PointLight(0x7cb342, 1.3, 50);
-        rim.position.set(-6, 5, 4);
+        const rim = new THREE.PointLight(0x7cb342, 1.4, 60);
+        rim.position.set(-7, 6, 4);
         scene.add(rim);
 
-        const gold = new THREE.PointLight(0xf9a825, 0.82, 40);
-        gold.position.set(5, 2, 6);
+        const gold = new THREE.PointLight(0xf9a825, 0.95, 50);
+        gold.position.set(6, 3, 6);
         scene.add(gold);
 
-        const floorGeo = new THREE.CircleGeometry(9, 64);
-        const floorMat = new THREE.MeshStandardMaterial({
-          color: 0x2b3b2d,
-          roughness: 0.95,
-          metalness: 0.05
-        });
-        const floor = new THREE.Mesh(floorGeo, floorMat);
+        const floor = new THREE.Mesh(
+          new THREE.CircleGeometry(11, 64),
+          new THREE.MeshStandardMaterial({ color: 0x2b3b2d, roughness: 0.95, metalness: 0.05 })
+        );
         floor.rotation.x = -Math.PI / 2;
-        floor.position.y = -2.6;
+        floor.position.y = -3.1;
         floor.receiveShadow = true;
         scene.add(floor);
 
-        const platformGeo = new THREE.CylinderGeometry(4.6, 5, 0.4, 40);
-        const platformMat = new THREE.MeshStandardMaterial({
-          color: 0x546e4b,
-          roughness: 0.7,
-          metalness: 0.12
-        });
-        const platform = new THREE.Mesh(platformGeo, platformMat);
-        platform.position.y = -2.35;
+        const platform = new THREE.Mesh(
+          new THREE.CylinderGeometry(5.8, 6.2, 0.5, 48),
+          new THREE.MeshStandardMaterial({ color: 0x546e4b, roughness: 0.75, metalness: 0.12 })
+        );
+        platform.position.y = -2.85;
         platform.receiveShadow = true;
         platform.castShadow = true;
         scene.add(platform);
 
         const machine = new THREE.Group();
-        machine.position.y = isMobile ? 0.95 : 0.55;
+        machine.position.set(-1.0, isMobile ? 1.0 : 0.7, 0);
         scene.add(machine);
 
-        const metalMat = new THREE.MeshStandardMaterial({
-          color: 0xb0b7bd,
-          roughness: 0.46,
-          metalness: 0.75
-        });
-        const darkMetal = new THREE.MeshStandardMaterial({
-          color: 0x59656b,
-          roughness: 0.5,
-          metalness: 0.74
-        });
-        const blackMat = new THREE.MeshStandardMaterial({
-          color: 0x232629,
-          roughness: 0.65,
-          metalness: 0.35
-        });
-        const greenMat = new THREE.MeshStandardMaterial({
-          color: 0x4caf50,
-          roughness: 0.4,
-          metalness: 0.28,
-          emissive: 0x102510
-        });
-        const amberMat = new THREE.MeshStandardMaterial({
-          color: 0xf9a825,
-          roughness: 0.45,
-          metalness: 0.22
-        });
-        const compostMat = new THREE.MeshStandardMaterial({
-          color: 0x5d4037,
-          roughness: 1,
-          metalness: 0.02
-        });
-        const leafMat = new THREE.MeshStandardMaterial({
-          color: 0x6fbf4b,
-          roughness: 0.8,
-          metalness: 0.05
+        const potGroup = new THREE.Group();
+        potGroup.position.set(4.6, -2.05, 0.2);
+        scene.add(potGroup);
+
+        const metalMat = new THREE.MeshStandardMaterial({ color: 0xb0b7bd, roughness: 0.42, metalness: 0.76 });
+        const darkMetal = new THREE.MeshStandardMaterial({ color: 0x59656b, roughness: 0.52, metalness: 0.74 });
+        const blackMat = new THREE.MeshStandardMaterial({ color: 0x232629, roughness: 0.65, metalness: 0.35 });
+        const greenMat = new THREE.MeshStandardMaterial({ color: 0x4caf50, roughness: 0.4, metalness: 0.24, emissive: 0x0f2410 });
+        const amberMat = new THREE.MeshStandardMaterial({ color: 0xf9a825, roughness: 0.45, metalness: 0.2 });
+        const compostMat = new THREE.MeshStandardMaterial({ color: 0x5d4037, roughness: 1, metalness: 0.02 });
+        const leafMat = new THREE.MeshStandardMaterial({ color: 0x6fbf4b, roughness: 0.8, metalness: 0.05 });
+        const stemMat = new THREE.MeshStandardMaterial({ color: 0x4e8d38, roughness: 0.85, metalness: 0.02 });
+        const glassMat = new THREE.MeshPhysicalMaterial({
+          color: 0xb7f7b5,
+          transparent: true,
+          opacity: 0.18,
+          transmission: 0.65,
+          roughness: 0.12,
+          metalness: 0.04
         });
 
-        const body = new THREE.Mesh(new THREE.BoxGeometry(5.1, 3.2, 3.2), metalMat);
+        const body = new THREE.Mesh(new THREE.BoxGeometry(5.2, 3.4, 3.4), metalMat);
         body.castShadow = true;
         body.receiveShadow = true;
         machine.add(body);
 
-        const frontPanel = new THREE.Mesh(new THREE.BoxGeometry(5.12, 2.7, 0.18), darkMetal);
-        frontPanel.position.set(0, 0, 1.6);
+        const frontPanel = new THREE.Mesh(new THREE.BoxGeometry(5.24, 2.8, 0.18), darkMetal);
+        frontPanel.position.set(0, 0, 1.7);
         machine.add(frontPanel);
 
-        const hatch = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.12, 1.4), darkMetal);
-        hatch.position.set(0.2, 1.15, -0.1);
-        hatch.rotation.z = 0.5;
+        const cutWindow = new THREE.Mesh(new THREE.BoxGeometry(2.2, 1.65, 0.08), glassMat);
+        cutWindow.position.set(1.25, 0.15, 1.74);
+        machine.add(cutWindow);
+
+        const innerChamber = new THREE.Mesh(
+          new THREE.BoxGeometry(2.0, 1.45, 0.05),
+          new THREE.MeshBasicMaterial({ color: 0x9cff86, transparent: true, opacity: 0.08 })
+        );
+        innerChamber.position.set(1.25, 0.15, 1.66);
+        machine.add(innerChamber);
+
+        const hatch = new THREE.Mesh(new THREE.BoxGeometry(1.95, 0.12, 1.45), darkMetal);
+        hatch.position.set(0.2, 1.2, -0.05);
+        hatch.rotation.z = 0.46;
         machine.add(hatch);
 
-        const funnel = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1.65, 1.6, 4), metalMat);
-        funnel.position.set(0, 2.3, 0);
+        const funnel = new THREE.Mesh(new THREE.CylinderGeometry(0.95, 1.75, 1.7, 4), metalMat);
+        funnel.position.set(0, 2.45, 0);
         funnel.rotation.y = Math.PI / 4;
         funnel.castShadow = true;
         machine.add(funnel);
 
-        const topRing = new THREE.Mesh(new THREE.CylinderGeometry(1.75, 1.75, 0.12, 24), blackMat);
-        topRing.position.set(0, 3.05, 0);
+        const topRing = new THREE.Mesh(new THREE.CylinderGeometry(1.85, 1.85, 0.12, 24), blackMat);
+        topRing.position.set(0, 3.22, 0);
         machine.add(topRing);
 
         const redBtn = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.16, 24), new THREE.MeshStandardMaterial({ color: 0xe53935 }));
         redBtn.rotation.x = Math.PI / 2;
-        redBtn.position.set(-1.7, 1.08, 1.73);
+        redBtn.position.set(-1.75, 1.12, 1.83);
         machine.add(redBtn);
 
         const blueBtn = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, 0.16, 24), new THREE.MeshStandardMaterial({ color: 0x1e88e5 }));
         blueBtn.rotation.x = Math.PI / 2;
-        blueBtn.position.set(-1.25, 1.08, 1.73);
+        blueBtn.position.set(-1.3, 1.12, 1.83);
         machine.add(blueBtn);
 
-        const logoPlate = new THREE.Mesh(new THREE.BoxGeometry(2.3, 0.58, 0.08), greenMat);
-        logoPlate.position.set(0, 0.68, 1.75);
+        const logoPlate = new THREE.Mesh(new THREE.BoxGeometry(2.35, 0.62, 0.08), greenMat);
+        logoPlate.position.set(0, 0.68, 1.85);
         machine.add(logoPlate);
 
-        const logoGlow = new THREE.PointLight(0x8bc34a, 0.95, 8);
-        logoGlow.position.set(0, 0.68, 2.5);
+        const logoGlow = new THREE.PointLight(0x8bc34a, 1.1, 10);
+        logoGlow.position.set(0, 0.7, 2.5);
         scene.add(logoGlow);
 
-        const slot = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.16, 0.36), blackMat);
-        slot.position.set(0.7, -0.9, 1.72);
+        const slot = new THREE.Mesh(new THREE.BoxGeometry(1.8, 0.18, 0.4), blackMat);
+        slot.position.set(0.8, -0.95, 1.82);
         machine.add(slot);
 
         const drawer = new THREE.Group();
-        const drawerMain = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.9, 1.3), darkMetal);
+        const drawerMain = new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.95, 1.35), darkMetal);
         drawerMain.castShadow = true;
         drawerMain.receiveShadow = true;
         drawer.add(drawerMain);
 
-        const drawerFront = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.95, 0.1), blackMat);
-        drawerFront.position.z = 0.7;
+        const drawerFront = new THREE.Mesh(new THREE.BoxGeometry(2.05, 1.0, 0.1), blackMat);
+        drawerFront.position.z = 0.73;
         drawer.add(drawerFront);
 
-        const drawerHandle = new THREE.Mesh(new THREE.TorusGeometry(0.18, 0.04, 12, 24), amberMat);
-        drawerHandle.position.set(0, 0, 0.78);
+        const drawerHandle = new THREE.Mesh(new THREE.TorusGeometry(0.2, 0.045, 12, 24), amberMat);
+        drawerHandle.position.set(0, 0, 0.82);
         drawer.add(drawerHandle);
-        drawer.position.set(-3.3, -1.05, 0);
+        drawer.position.set(-4.2, -1.15, 0);
         scene.add(drawer);
 
-        const wheelGeo = new THREE.CylinderGeometry(0.5, 0.5, 0.4, 26);
+        const wheelGeo = new THREE.CylinderGeometry(0.52, 0.52, 0.42, 28);
         function createWheel(x, z) {
           const wheel = new THREE.Mesh(wheelGeo, blackMat);
           wheel.rotation.z = Math.PI / 2;
-          wheel.position.set(x, -1.85, z);
+          wheel.position.set(x, -1.95, z);
           wheel.castShadow = true;
           machine.add(wheel);
         }
-        createWheel(-1.9, 1.25);
-        createWheel(1.9, 1.25);
-        createWheel(-1.9, -1.25);
-        createWheel(1.9, -1.25);
-
-        const axleGeo = new THREE.CylinderGeometry(0.08, 0.08, 2.6, 16);
-        const axle1 = new THREE.Mesh(axleGeo, darkMetal);
-        axle1.rotation.z = Math.PI / 2;
-        axle1.position.set(0, -1.85, 1.25);
-        machine.add(axle1);
-
-        const axle2 = new THREE.Mesh(axleGeo, darkMetal);
-        axle2.rotation.z = Math.PI / 2;
-        axle2.position.set(0, -1.85, -1.25);
-        machine.add(axle2);
+        createWheel(-1.95, 1.3);
+        createWheel(1.95, 1.3);
+        createWheel(-1.95, -1.3);
+        createWheel(1.95, -1.3);
 
         const bladeGroup = new THREE.Group();
-        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 2.3, 16), blackMat);
+        const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.13, 0.13, 2.2, 16), blackMat);
         shaft.rotation.z = Math.PI / 2;
         bladeGroup.add(shaft);
 
-        function blade(angle) {
-          const b = new THREE.Mesh(new THREE.BoxGeometry(0.95, 0.08, 0.26), darkMetal);
+        function addBlade(angle, size = 1) {
+          const b = new THREE.Mesh(new THREE.BoxGeometry(1.08 * size, 0.09, 0.28), darkMetal);
           b.rotation.z = angle;
           bladeGroup.add(b);
         }
-        blade(0);
-        blade(Math.PI / 2);
-        blade(Math.PI / 4);
-        blade(-Math.PI / 4);
-        bladeGroup.position.set(0.1, 0.1, 0);
+        addBlade(0, 1);
+        addBlade(Math.PI / 2, 1);
+        addBlade(Math.PI / 4, 0.92);
+        addBlade(-Math.PI / 4, 0.92);
+        bladeGroup.position.set(1.05, 0.05, 0.25);
         machine.add(bladeGroup);
 
-        const fruits = [];
-        const fruitColors = [0xff7043, 0xffca28, 0x66bb6a, 0xef5350, 0xab47bc];
+        const shredGlow = new THREE.PointLight(0xfff176, 0.2, 5);
+        shredGlow.position.set(1.1, 0.2, 1.2);
+        scene.add(shredGlow);
 
-        for (let i = 0; i < 14; i++) {
+        const flowTube = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.15, 0.15, 1.85, 16),
+          new THREE.MeshStandardMaterial({ color: 0x8d6e63, roughness: 0.8, metalness: 0.1, transparent: true, opacity: 0.35 })
+        );
+        flowTube.rotation.z = Math.PI / 2;
+        flowTube.position.set(0.35, -0.65, 0.3);
+        machine.add(flowTube);
+
+        const fruits = [];
+        const fruitColors = [0xff7043, 0xffca28, 0x66bb6a, 0xef5350, 0xab47bc, 0xff8a65];
+
+        for (let i = 0; i < 16; i++) {
           const fruit = new THREE.Mesh(
-            new THREE.SphereGeometry(0.18 + Math.random() * 0.08, 20, 20),
+            new THREE.SphereGeometry(0.16 + Math.random() * 0.08, 18, 18),
             new THREE.MeshStandardMaterial({
               color: fruitColors[i % fruitColors.length],
               roughness: 0.65,
-              metalness: 0.05
+              metalness: 0.04
             })
           );
-          fruit.position.set(
-            (Math.random() - 0.5) * 1.3,
-            4.8 + i * 0.28,
-            (Math.random() - 0.5) * 1.1
-          );
+          fruit.position.set((Math.random() - 0.5) * 1.2, 5 + i * 0.24, (Math.random() - 0.5) * 1.0);
           fruit.castShadow = true;
           scene.add(fruit);
           fruits.push(fruit);
         }
 
-        const particles = [];
-        for (let i = 0; i < 120; i++) {
+        const shreddedPieces = [];
+        for (let i = 0; i < 60; i++) {
+          const piece = new THREE.Mesh(
+            new THREE.BoxGeometry(0.1, 0.06, 0.06),
+            new THREE.MeshStandardMaterial({
+              color: fruitColors[i % fruitColors.length],
+              roughness: 0.8,
+              metalness: 0.02
+            })
+          );
+          piece.visible = false;
+          scene.add(piece);
+          shreddedPieces.push(piece);
+        }
+
+        const compostParticles = [];
+        for (let i = 0; i < 140; i++) {
           const p = new THREE.Mesh(
-            new THREE.SphereGeometry(0.05 + Math.random() * 0.03, 8, 8),
+            new THREE.SphereGeometry(0.045 + Math.random() * 0.03, 8, 8),
             compostMat
           );
           p.visible = false;
           scene.add(p);
-          particles.push(p);
+          compostParticles.push(p);
         }
 
+        const streamParticles = [];
+        for (let i = 0; i < 50; i++) {
+          const p = new THREE.Mesh(
+            new THREE.SphereGeometry(0.035, 8, 8),
+            new THREE.MeshStandardMaterial({ color: 0x8d6e63, roughness: 1, metalness: 0.02 })
+          );
+          p.visible = false;
+          scene.add(p);
+          streamParticles.push(p);
+        }
+
+        const soil = new THREE.Mesh(
+          new THREE.CylinderGeometry(1.08, 1.18, 0.95, 32),
+          new THREE.MeshStandardMaterial({ color: 0x5d4037, roughness: 1, metalness: 0.02 })
+        );
+        soil.position.y = 0.25;
+        potGroup.add(soil);
+
+        const pot = new THREE.Mesh(
+          new THREE.CylinderGeometry(1.28, 1.02, 1.65, 32, 1, true),
+          new THREE.MeshStandardMaterial({ color: 0x8d6e63, roughness: 0.95, metalness: 0.04 })
+        );
+        pot.position.y = 0;
+        pot.castShadow = true;
+        pot.receiveShadow = true;
+        potGroup.add(pot);
+
+        const stem = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.07, 0.1, 2.2, 12),
+          stemMat
+        );
+        stem.position.y = 1.25;
+        stem.scale.y = 0.1;
+        potGroup.add(stem);
+
         const leaves = [];
-        for (let i = 0; i < 18; i++) {
+        function makeLeaf(x, y, z, ry) {
           const leaf = new THREE.Mesh(
-            new THREE.SphereGeometry(0.06, 10, 10),
+            new THREE.SphereGeometry(0.24, 16, 16),
             leafMat
           );
-          leaf.scale.set(1.7, 0.62, 0.62);
-          leaf.visible = false;
-          scene.add(leaf);
+          leaf.scale.set(1.8, 0.65, 1);
+          leaf.position.set(x, y, z);
+          leaf.rotation.z = ry;
+          leaf.scale.multiplyScalar(0.1);
+          potGroup.add(leaf);
           leaves.push(leaf);
+        }
+        makeLeaf(0.3, 1.3, 0, -0.65);
+        makeLeaf(-0.34, 1.45, 0.08, 0.75);
+        makeLeaf(0.38, 1.75, -0.05, -0.45);
+        makeLeaf(-0.25, 1.95, 0.03, 0.55);
+
+        const flowerCore = new THREE.Mesh(
+          new THREE.SphereGeometry(0.11, 16, 16),
+          new THREE.MeshStandardMaterial({ color: 0xffca28, roughness: 0.7, metalness: 0.05 })
+        );
+        flowerCore.position.set(0, 2.35, 0);
+        flowerCore.scale.set(0.01, 0.01, 0.01);
+        potGroup.add(flowerCore);
+
+        const petals = [];
+        for (let i = 0; i < 6; i++) {
+          const petal = new THREE.Mesh(
+            new THREE.SphereGeometry(0.12, 12, 12),
+            new THREE.MeshStandardMaterial({ color: 0xff8a80, roughness: 0.7, metalness: 0.05 })
+          );
+          const a = (Math.PI * 2 * i) / 6;
+          petal.position.set(Math.cos(a) * 0.18, 2.35 + Math.sin(a) * 0.02, Math.sin(a) * 0.18);
+          petal.scale.set(1.2, 0.7, 1.2);
+          petal.scale.multiplyScalar(0.01);
+          potGroup.add(petal);
+          petals.push(petal);
         }
 
         let frame = 0;
@@ -906,20 +970,21 @@
           frame += 1;
           const t = frame * 0.01;
 
-          machine.rotation.y = Math.sin(t * 0.55) * 0.3;
-          machine.rotation.x = Math.sin(t * 0.7) * 0.03;
-          machine.position.y = (isMobile ? 0.95 : 0.55) + Math.sin(t * 1.25) * 0.05;
-          drawer.position.z = Math.sin(t * 0.9) * 0.08;
+          machine.rotation.y = Math.sin(t * 0.45) * 0.18;
+          machine.rotation.x = Math.sin(t * 0.7) * 0.02;
+          machine.position.y = (isMobile ? 1.0 : 0.7) + Math.sin(t * 1.15) * 0.04;
+
+          potGroup.rotation.y = -0.35 + Math.sin(t * 0.5) * 0.08;
+          drawer.position.z = Math.sin(t * 0.7) * 0.06;
 
           redBtn.scale.y = 1 + Math.sin(t * 5) * 0.1;
           blueBtn.scale.y = 1 + Math.cos(t * 5) * 0.1;
 
           let step = 0;
-          const cycle = frame % 920;
-
-          if (cycle < 210) step = 0;
-          else if (cycle < 450) step = 1;
-          else if (cycle < 690) step = 2;
+          const cycle = frame % 1040;
+          if (cycle < 220) step = 0;
+          else if (cycle < 500) step = 1;
+          else if (cycle < 760) step = 2;
           else step = 3;
 
           if (step !== lastStep) {
@@ -927,15 +992,17 @@
             onStepChange?.(step);
           }
 
+          // Coleta
           fruits.forEach((fruit, i) => {
             if (step === 0) {
               fruit.visible = true;
-              fruit.position.y -= 0.04 + i * 0.001;
+              fruit.position.y -= 0.045 + i * 0.0008;
               fruit.rotation.x += 0.07;
               fruit.rotation.y += 0.05;
-              if (fruit.position.y < 3.15) {
-                fruit.position.y = 5.0 + Math.random() * 1.6;
-                fruit.position.x = (Math.random() - 0.5) * 1.15;
+
+              if (fruit.position.y < 3.2) {
+                fruit.position.y = 5.1 + Math.random() * 1.7;
+                fruit.position.x = (Math.random() - 0.5) * 1.2;
                 fruit.position.z = (Math.random() - 0.5) * 1.0;
               }
             } else {
@@ -943,32 +1010,51 @@
             }
           });
 
+          // Trituração visível dentro da máquina
           if (step === 1) {
-            bladeGroup.rotation.x += 0.72;
-            bladeGroup.rotation.y += 0.06;
-            logoGlow.intensity = 1.4 + Math.sin(t * 14) * 0.35;
+            bladeGroup.rotation.x += 0.9;
+            bladeGroup.rotation.y += 0.12;
+            shredGlow.intensity = 1.2 + Math.sin(t * 18) * 0.35;
+            logoGlow.intensity = 1.45 + Math.sin(t * 12) * 0.35;
             body.material.emissive = new THREE.Color(0x141414);
+
+            shreddedPieces.forEach((piece, i) => {
+              piece.visible = true;
+              const radius = 0.26 + (i % 6) * 0.06;
+              const ang = t * 5 + i * 0.5;
+              piece.position.set(
+                1.05 + Math.cos(ang) * radius,
+                0.12 + Math.sin(ang * 1.8) * 0.45,
+                0.2 + Math.sin(ang) * 0.28
+              );
+              piece.rotation.x += 0.2;
+              piece.rotation.y += 0.16;
+              piece.rotation.z += 0.1;
+            });
           } else {
-            bladeGroup.rotation.x += 0.14;
+            bladeGroup.rotation.x += 0.16;
             bladeGroup.rotation.y *= 0.96;
-            logoGlow.intensity = 0.9;
+            shredGlow.intensity = 0.15;
+            logoGlow.intensity = 1.0;
             body.material.emissive = new THREE.Color(0x000000);
+            shreddedPieces.forEach(piece => piece.visible = false);
           }
 
-          particles.forEach((p, i) => {
+          // Formação do adubo
+          compostParticles.forEach((p, i) => {
             if (step === 2) {
               p.visible = true;
-              const localT = (frame * 0.045 + i * 0.45) % 20;
+              const localT = (frame * 0.055 + i * 0.33) % 24;
               p.position.set(
-                1.15 - localT * 0.13,
-                -0.85 + Math.sin(localT + i) * 0.18,
-                Math.sin(localT * 1.6 + i) * 0.42
+                1.8 - localT * 0.12,
+                -0.25 - Math.sin(localT * 0.5 + i) * 0.55,
+                Math.sin(localT + i) * 0.36
               );
             } else if (step === 3) {
               p.visible = true;
               p.position.set(
-                -3.1 + (Math.random() - 0.5) * 1.35,
-                -0.78 + Math.random() * 0.52,
+                -4.15 + Math.random() * 2.1,
+                -1.0 + Math.random() * 0.6,
                 (Math.random() - 0.5) * 1.0
               );
             } else {
@@ -976,21 +1062,54 @@
             }
           });
 
-          if (step === 3) {
-            drawer.position.x = -2.35;
-            leaves.forEach((leaf, i) => {
-              leaf.visible = true;
-              leaf.position.set(
-                -3.2 + Math.sin(t * 2 + i) * 0.72,
-                0.0 + Math.cos(t * 2.7 + i) * 0.26,
-                Math.sin(i * 1.5) * 0.52
+          // Fluxo do adubo saindo e indo para o vaso
+          streamParticles.forEach((p, i) => {
+            if (step === 3) {
+              p.visible = true;
+              const progress = ((frame * 0.02 + i * 0.06) % 1);
+              const start = new THREE.Vector3(-2.5, -0.85, 0.2);
+              const end = new THREE.Vector3(4.6, -1.0, 0.2);
+              p.position.set(
+                start.x + (end.x - start.x) * progress,
+                start.y + Math.sin(progress * Math.PI) * 0.9,
+                start.z + Math.sin(progress * 7 + i) * 0.12
               );
-              leaf.rotation.z += 0.02 + i * 0.0005;
-            });
+            } else {
+              p.visible = false;
+            }
+          });
+
+          // Gaveta abrindo
+          if (step === 3) {
+            drawer.position.x = -3.1;
           } else {
-            drawer.position.x += (-3.3 - drawer.position.x) * 0.09;
-            leaves.forEach(leaf => leaf.visible = false);
+            drawer.position.x += (-4.2 - drawer.position.x) * 0.08;
           }
+
+          // Planta crescendo
+          const targetGrowth = step === 3 ? 1 : 0.08;
+          stem.scale.y += (targetGrowth - stem.scale.y) * (step === 3 ? 0.04 : 0.08);
+          stem.position.y = 0.2 + stem.scale.y * 1.05;
+
+          leaves.forEach((leaf, i) => {
+            const desired = step === 3 ? 1 : 0.08;
+            leaf.scale.x += ((1.8 * desired) - leaf.scale.x) * 0.05;
+            leaf.scale.y += ((0.65 * desired) - leaf.scale.y) * 0.05;
+            leaf.scale.z += ((1 * desired) - leaf.scale.z) * 0.05;
+            leaf.rotation.y = Math.sin(t * 1.8 + i) * 0.18;
+          });
+
+          flowerCore.scale.x += (((step === 3 ? 1 : 0.01)) - flowerCore.scale.x) * 0.05;
+          flowerCore.scale.y += (((step === 3 ? 1 : 0.01)) - flowerCore.scale.y) * 0.05;
+          flowerCore.scale.z += (((step === 3 ? 1 : 0.01)) - flowerCore.scale.z) * 0.05;
+
+          petals.forEach((petal, i) => {
+            const desired = step === 3 ? 1 : 0.01;
+            petal.scale.x += ((1.2 * desired) - petal.scale.x) * 0.05;
+            petal.scale.y += ((0.7 * desired) - petal.scale.y) * 0.05;
+            petal.scale.z += ((1.2 * desired) - petal.scale.z) * 0.05;
+            petal.rotation.y = Math.sin(t * 2 + i) * 0.18;
+          });
 
           renderer.render(scene, camera);
           requestAnimationFrame(animate);
@@ -1037,16 +1156,16 @@
           text: "As cascas e restos orgânicos entram pelo funil superior da máquina para iniciar o processo."
         },
         {
-          title: "Trituração interna",
-          text: "As lâminas giram rapidamente e quebram os resíduos em partes menores, facilitando o reaproveitamento."
+          title: "Trituração interna visível",
+          text: "A lateral transparente mostra as lâminas girando e quebrando os resíduos em pedaços menores dentro da máquina."
         },
         {
-          title: "Formação do adubo",
-          text: "O material triturado é processado internamente e se transforma em base para o adubo orgânico."
+          title: "Geração do adubo",
+          text: "Depois de triturado, o material orgânico é processado e se transforma em composto, pronto para ser reaproveitado."
         },
         {
-          title: "Saída para plantio",
-          text: "O adubo vai para a gaveta e pode ser usado no plantio, enriquecendo o solo e ajudando no crescimento das plantas."
+          title: "Plantio e crescimento",
+          text: "O adubo sai da máquina, vai para o solo e ajuda no crescimento da planta, representando o uso final do processo."
         }
       ];
 
@@ -1174,9 +1293,8 @@
                     <div>
                       <div className="section-title">Como a máquina funciona?</div>
                       <div className="section-text">
-                        A máquina AgroTerra recebe cascas de frutas e restos orgânicos pelo funil superior.
-                        Depois, as lâminas internas trituram esse material, facilitando o reaproveitamento.
-                        No final, o composto orgânico sai pela gaveta e pode ser usado como adubo no plantio.
+                        A simulação mostra a entrada dos resíduos, a trituração visível dentro da máquina,
+                        a formação do adubo orgânico e o uso final no plantio com crescimento da planta em 3D.
                       </div>
                     </div>
 
@@ -1199,22 +1317,22 @@
                       <div className="process-item">
                         <div className="num">1</div>
                         <h4>Entrada</h4>
-                        <p>As cascas são colocadas no funil superior da máquina.</p>
+                        <p>Os resíduos entram pelo funil e iniciam o processo de reaproveitamento.</p>
                       </div>
                       <div className="process-item">
                         <div className="num">2</div>
                         <h4>Trituração</h4>
-                        <p>As lâminas giram e reduzem o material em pequenas partes.</p>
+                        <p>A janela lateral mostra as lâminas quebrando o material orgânico dentro da máquina.</p>
                       </div>
                       <div className="process-item">
                         <div className="num">3</div>
-                        <h4>Formação</h4>
-                        <p>O material triturado vira base para o adubo orgânico.</p>
+                        <h4>Adubo</h4>
+                        <p>O material triturado é transformado em composto orgânico pronto para uso.</p>
                       </div>
                       <div className="process-item">
                         <div className="num">4</div>
-                        <h4>Saída</h4>
-                        <p>O adubo sai na gaveta e pode ser usado no plantio.</p>
+                        <h4>Plantio</h4>
+                        <p>O adubo vai para o solo e ajuda no crescimento da planta, concluindo o ciclo.</p>
                       </div>
                     </div>
                   </div>
