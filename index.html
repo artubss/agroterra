@@ -50,9 +50,9 @@
       inset: 0;
       display: flex;
       opacity: 0;
-      transform: scale(1.03);
+      transform: scale(1.02);
       pointer-events: none;
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.7s ease, transform 0.7s ease;
     }
 
     .slide.active {
@@ -80,8 +80,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.45)),
-        linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.2));
+        linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.48)),
+        linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.18));
     }
 
     .content {
@@ -89,7 +89,7 @@
       z-index: 2;
       width: 100%;
       height: 100%;
-      padding: 40px 50px 96px;
+      padding: 34px 42px 88px;
       display: flex;
       flex-direction: column;
       overflow: auto;
@@ -211,9 +211,9 @@
 
     .grid-2 {
       display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 28px;
-      align-items: center;
+      grid-template-columns: 1.04fr 0.96fr;
+      gap: 26px;
+      align-items: start;
       width: 100%;
       min-height: 0;
       flex: 1;
@@ -252,7 +252,7 @@
     .machine-stage {
       width: 100%;
       height: 100%;
-      min-height: 420px;
+      min-height: 500px;
       border-radius: 28px;
       overflow: hidden;
       position: relative;
@@ -266,25 +266,25 @@
 
     .machine-overlay {
       position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 16px;
+      left: 16px;
+      right: 16px;
+      bottom: 12px;
       display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 14px;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: stretch;
+      gap: 10px;
       z-index: 2;
       pointer-events: none;
-      flex-wrap: wrap;
     }
 
     .legend {
-      background: rgba(0,0,0,0.28);
+      background: rgba(0,0,0,0.32);
       border: 1px solid rgba(255,255,255,0.1);
       backdrop-filter: blur(8px);
       border-radius: 18px;
       padding: 14px 16px;
-      max-width: 52%;
+      max-width: 100%;
     }
 
     .legend h4 {
@@ -302,19 +302,19 @@
 
     .step-indicator {
       display: flex;
-      gap: 10px;
+      gap: 8px;
       align-items: center;
       flex-wrap: wrap;
-      justify-content: flex-end;
+      justify-content: flex-start;
     }
 
     .step-pill {
-      padding: 10px 12px;
+      padding: 9px 11px;
       border-radius: 999px;
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12px;
       background: rgba(255,255,255,0.08);
-      color: rgba(255,255,255,0.7);
+      color: rgba(255,255,255,0.78);
       border: 1px solid rgba(255,255,255,0.08);
       white-space: nowrap;
     }
@@ -395,9 +395,9 @@
 
     .footer-nav {
       position: absolute;
-      left: 28px;
-      right: 28px;
-      bottom: max(18px, env(safe-area-inset-bottom));
+      left: 14px;
+      right: 14px;
+      bottom: max(10px, env(safe-area-inset-bottom));
       z-index: 5;
       display: flex;
       justify-content: space-between;
@@ -415,8 +415,8 @@
       color: white;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.14);
-      width: 58px;
-      height: 58px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       cursor: pointer;
       font-size: 24px;
@@ -431,47 +431,8 @@
       background: rgba(255,255,255,0.15);
     }
 
-    .dots {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.2);
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: 0.3s ease;
-    }
-
-    .dot.active {
-      width: 34px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #7cb342, #ffca28);
-    }
-
-    .help-box {
-      margin-top: 22px;
-      padding: 20px;
-      border-radius: 22px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-    }
-
-    .help-box h4 {
-      margin: 0 0 10px;
-      color: #fff59d;
-      font-size: clamp(20px, 2vw, 22px);
-    }
-
-    .help-box ul {
-      margin: 0;
-      padding-left: 22px;
-      line-height: 1.7;
-      font-size: clamp(15px, 1.3vw, 17px);
+    .nav-spacer {
+      flex: 1;
     }
 
     .final-quote {
@@ -508,7 +469,6 @@
       .grid-2 {
         grid-template-columns: 1fr;
         gap: 18px;
-        padding-bottom: 10px;
       }
 
       .process-list,
@@ -518,12 +478,8 @@
         grid-template-columns: 1fr;
       }
 
-      .legend {
-        max-width: 100%;
-      }
-
       .machine-stage {
-        min-height: 360px;
+        min-height: 430px;
       }
     }
 
@@ -533,7 +489,7 @@
       }
 
       .content {
-        padding: 18px 16px 88px;
+        padding: 16px 14px 78px;
       }
 
       .top-bar {
@@ -549,12 +505,12 @@
 
       .hero-center {
         margin: 0 auto;
-        padding-top: 10px;
-        padding-bottom: 10px;
+        padding-top: 6px;
+        padding-bottom: 4px;
       }
 
       .logo {
-        width: min(70vw, 320px);
+        width: min(68vw, 300px);
         min-width: 140px;
       }
 
@@ -565,9 +521,9 @@
       }
 
       .machine-stage {
-        min-height: 320px;
-        height: 48vh;
-        max-height: 520px;
+        min-height: 420px;
+        height: 58vh;
+        max-height: 620px;
         border-radius: 22px;
       }
 
@@ -575,7 +531,7 @@
         left: 10px;
         right: 10px;
         bottom: 10px;
-        gap: 10px;
+        gap: 8px;
       }
 
       .legend {
@@ -593,7 +549,6 @@
 
       .step-indicator {
         gap: 6px;
-        justify-content: flex-start;
       }
 
       .step-pill {
@@ -603,46 +558,36 @@
 
       .process-item,
       .card,
-      .benefit,
-      .help-box {
+      .benefit {
         padding: 16px;
         border-radius: 18px;
       }
 
       .footer-nav {
-        left: 12px;
-        right: 12px;
-        bottom: max(10px, env(safe-area-inset-bottom));
+        left: 10px;
+        right: 10px;
+        bottom: max(8px, env(safe-area-inset-bottom));
       }
 
       .nav-btn {
-        width: 48px;
-        height: 48px;
+        width: 46px;
+        height: 46px;
         font-size: 22px;
-      }
-
-      .dot {
-        width: 10px;
-        height: 10px;
-      }
-
-      .dot.active {
-        width: 24px;
       }
     }
 
     @media (max-width: 480px) {
       .content {
-        padding: 14px 12px 84px;
+        padding: 12px 10px 72px;
       }
 
       .title {
-        margin-top: 12px;
+        margin-top: 10px;
         margin-bottom: 10px;
       }
 
       .subtitle {
-        margin-bottom: 14px;
+        margin-bottom: 12px;
       }
 
       .team-title {
@@ -655,8 +600,8 @@
       }
 
       .machine-stage {
-        min-height: 280px;
-        height: 42vh;
+        min-height: 400px;
+        height: 60vh;
       }
 
       .legend {
@@ -667,15 +612,16 @@
         width: 100%;
       }
 
-      .footer-nav {
-        gap: 10px;
+      .section-text,
+      .desc {
+        line-height: 1.5;
       }
     }
 
     @media (max-height: 700px) and (orientation: landscape) {
       .content {
-        padding-top: 14px;
-        padding-bottom: 76px;
+        padding-top: 12px;
+        padding-bottom: 68px;
       }
 
       .logo {
@@ -683,8 +629,8 @@
       }
 
       .machine-stage {
-        min-height: 260px;
-        height: 56vh;
+        min-height: 300px;
+        height: 62vh;
       }
 
       .title {
@@ -698,13 +644,12 @@
       .desc,
       .section-text {
         font-size: 14px;
-        line-height: 1.45;
+        line-height: 1.42;
       }
 
       .team-box,
       .card,
       .benefit,
-      .help-box,
       .process-item {
         padding: 14px;
       }
@@ -717,9 +662,10 @@
   <script type="text/babel">
     const { useEffect, useRef, useState } = React;
 
-    function Machine3D({ playing = true }) {
+    function Machine3D() {
       const mountRef = useRef(null);
       const statusRef = useRef(null);
+      const pillsRef = useRef([]);
 
       useEffect(() => {
         const container = mountRef.current;
@@ -728,13 +674,14 @@
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x101712);
 
+        const isMobile = window.innerWidth <= 768;
         const camera = new THREE.PerspectiveCamera(
-          45,
+          isMobile ? 52 : 45,
           container.clientWidth / container.clientHeight,
           0.1,
           1000
         );
-        camera.position.set(0, 3, 12);
+        camera.position.set(0, isMobile ? 3.8 : 3.1, isMobile ? 13.5 : 12);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
         renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -742,17 +689,21 @@
         renderer.shadowMap.enabled = true;
         container.appendChild(renderer.domElement);
 
-        const ambient = new THREE.AmbientLight(0xffffff, 0.8);
+        const ambient = new THREE.AmbientLight(0xffffff, 0.9);
         scene.add(ambient);
 
-        const dir = new THREE.DirectionalLight(0xfff3d6, 1.4);
+        const dir = new THREE.DirectionalLight(0xfff3d6, 1.5);
         dir.position.set(6, 10, 8);
         dir.castShadow = true;
         scene.add(dir);
 
-        const rim = new THREE.PointLight(0x7cb342, 1.1, 50);
+        const rim = new THREE.PointLight(0x7cb342, 1.25, 50);
         rim.position.set(-6, 5, 4);
         scene.add(rim);
+
+        const gold = new THREE.PointLight(0xf9a825, 0.75, 40);
+        gold.position.set(5, 2, 6);
+        scene.add(gold);
 
         const floorGeo = new THREE.CircleGeometry(9, 64);
         const floorMat = new THREE.MeshStandardMaterial({
@@ -762,33 +713,34 @@
         });
         const floor = new THREE.Mesh(floorGeo, floorMat);
         floor.rotation.x = -Math.PI / 2;
-        floor.position.y = -2.2;
+        floor.position.y = -2.6;
         floor.receiveShadow = true;
         scene.add(floor);
 
-        const platformGeo = new THREE.CylinderGeometry(4.4, 4.8, 0.4, 40);
+        const platformGeo = new THREE.CylinderGeometry(4.6, 5, 0.4, 40);
         const platformMat = new THREE.MeshStandardMaterial({
           color: 0x546e4b,
           roughness: 0.7,
           metalness: 0.12
         });
         const platform = new THREE.Mesh(platformGeo, platformMat);
-        platform.position.y = -2;
+        platform.position.y = -2.35;
         platform.receiveShadow = true;
         platform.castShadow = true;
         scene.add(platform);
 
         const machine = new THREE.Group();
+        machine.position.y = isMobile ? 0.85 : 0.45;
         scene.add(machine);
 
         const metalMat = new THREE.MeshStandardMaterial({
           color: 0xb0b7bd,
-          roughness: 0.48,
-          metalness: 0.72
+          roughness: 0.46,
+          metalness: 0.75
         });
         const darkMetal = new THREE.MeshStandardMaterial({
           color: 0x59656b,
-          roughness: 0.52,
+          roughness: 0.5,
           metalness: 0.74
         });
         const blackMat = new THREE.MeshStandardMaterial({
@@ -798,14 +750,14 @@
         });
         const greenMat = new THREE.MeshStandardMaterial({
           color: 0x4caf50,
-          roughness: 0.45,
-          metalness: 0.25,
-          emissive: 0x122812
+          roughness: 0.4,
+          metalness: 0.28,
+          emissive: 0x102510
         });
         const amberMat = new THREE.MeshStandardMaterial({
           color: 0xf9a825,
           roughness: 0.45,
-          metalness: 0.2
+          metalness: 0.22
         });
         const compostMat = new THREE.MeshStandardMaterial({
           color: 0x5d4037,
@@ -856,7 +808,7 @@
         logoPlate.position.set(0, 0.68, 1.75);
         machine.add(logoPlate);
 
-        const logoGlow = new THREE.PointLight(0x8bc34a, 0.7, 8);
+        const logoGlow = new THREE.PointLight(0x8bc34a, 0.9, 8);
         logoGlow.position.set(0, 0.68, 2.5);
         scene.add(logoGlow);
 
@@ -877,7 +829,6 @@
         const drawerHandle = new THREE.Mesh(new THREE.TorusGeometry(0.18, 0.04, 12, 24), amberMat);
         drawerHandle.position.set(0, 0, 0.78);
         drawer.add(drawerHandle);
-
         drawer.position.set(-3.3, -1.05, 0);
         scene.add(drawer);
 
@@ -899,6 +850,7 @@
         axle1.rotation.z = Math.PI / 2;
         axle1.position.set(0, -1.85, 1.25);
         machine.add(axle1);
+
         const axle2 = new THREE.Mesh(axleGeo, darkMetal);
         axle2.rotation.z = Math.PI / 2;
         axle2.position.set(0, -1.85, -1.25);
@@ -924,7 +876,7 @@
         const fruits = [];
         const fruitColors = [0xff7043, 0xffca28, 0x66bb6a, 0xef5350, 0xab47bc];
 
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i < 14; i++) {
           const fruit = new THREE.Mesh(
             new THREE.SphereGeometry(0.18 + Math.random() * 0.08, 20, 20),
             new THREE.MeshStandardMaterial({
@@ -935,7 +887,7 @@
           );
           fruit.position.set(
             (Math.random() - 0.5) * 1.3,
-            4.4 + i * 0.33,
+            4.8 + i * 0.28,
             (Math.random() - 0.5) * 1.1
           );
           fruit.castShadow = true;
@@ -944,7 +896,7 @@
         }
 
         const particles = [];
-        for (let i = 0; i < 90; i++) {
+        for (let i = 0; i < 120; i++) {
           const p = new THREE.Mesh(
             new THREE.SphereGeometry(0.05 + Math.random() * 0.03, 8, 8),
             compostMat
@@ -955,12 +907,12 @@
         }
 
         const leaves = [];
-        for (let i = 0; i < 14; i++) {
+        for (let i = 0; i < 18; i++) {
           const leaf = new THREE.Mesh(
             new THREE.SphereGeometry(0.06, 10, 10),
             leafMat
           );
-          leaf.scale.set(1.5, 0.6, 0.6);
+          leaf.scale.set(1.7, 0.62, 0.62);
           leaf.visible = false;
           scene.add(leaf);
           leaves.push(leaf);
@@ -969,15 +921,24 @@
         let frame = 0;
         let destroyed = false;
 
+        function updateStepPills(step) {
+          pillsRef.current.forEach((el, index) => {
+            if (!el) return;
+            if (index === step) el.classList.add('active');
+            else el.classList.remove('active');
+          });
+        }
+
         function updateStatus(step) {
           if (!statusRef.current) return;
           const messages = [
-            "1. Coleta: as cascas e restos orgânicos entram pelo funil da máquina.",
-            "2. Trituração: as lâminas giram e quebram os resíduos em partes menores.",
-            "3. Decomposição acelerada: o material processado vira base para adubo orgânico.",
-            "4. Resultado final: o adubo sai na gaveta e pode ser usado no plantio."
+            "1. Coleta: as cascas e restos orgânicos entram pelo funil superior.",
+            "2. Trituração: as lâminas giram mais rápido e quebram os resíduos.",
+            "3. Formação do adubo: o material triturado é processado internamente.",
+            "4. Saída: o adubo vai para a gaveta e pode ser usado no plantio."
           ];
           statusRef.current.innerText = messages[step];
+          updateStepPills(step);
         }
 
         function animate() {
@@ -985,19 +946,20 @@
           frame += 1;
           const t = frame * 0.01;
 
-          machine.rotation.y = Math.sin(t * 0.55) * 0.35;
-          machine.position.y = Math.sin(t * 1.2) * 0.05;
-          drawer.position.z = Math.sin(t * 0.9) * 0.1;
+          machine.rotation.y = Math.sin(t * 0.55) * 0.3;
+          machine.rotation.x = Math.sin(t * 0.7) * 0.03;
+          machine.position.y = (isMobile ? 0.85 : 0.45) + Math.sin(t * 1.25) * 0.05;
+          drawer.position.z = Math.sin(t * 0.9) * 0.08;
 
-          redBtn.scale.y = 1 + Math.sin(t * 4) * 0.06;
-          blueBtn.scale.y = 1 + Math.cos(t * 4) * 0.06;
+          redBtn.scale.y = 1 + Math.sin(t * 5) * 0.1;
+          blueBtn.scale.y = 1 + Math.cos(t * 5) * 0.1;
 
           let step = 0;
-          const cycle = (frame % 900);
+          const cycle = frame % 920;
 
-          if (cycle < 220) step = 0;
+          if (cycle < 210) step = 0;
           else if (cycle < 450) step = 1;
-          else if (cycle < 670) step = 2;
+          else if (cycle < 690) step = 2;
           else step = 3;
 
           updateStatus(step);
@@ -1005,12 +967,12 @@
           fruits.forEach((fruit, i) => {
             if (step === 0) {
               fruit.visible = true;
-              fruit.position.y -= 0.03 + i * 0.0008;
-              fruit.rotation.x += 0.05;
-              fruit.rotation.y += 0.03;
-              if (fruit.position.y < 2.95) {
-                fruit.position.y = 4.5 + Math.random() * 1.8;
-                fruit.position.x = (Math.random() - 0.5) * 1.1;
+              fruit.position.y -= 0.04 + i * 0.001;
+              fruit.rotation.x += 0.07;
+              fruit.rotation.y += 0.05;
+              if (fruit.position.y < 3.15) {
+                fruit.position.y = 5.0 + Math.random() * 1.6;
+                fruit.position.x = (Math.random() - 0.5) * 1.15;
                 fruit.position.z = (Math.random() - 0.5) * 1.0;
               }
             } else {
@@ -1019,45 +981,51 @@
           });
 
           if (step === 1) {
-            bladeGroup.rotation.x += 0.58;
-            logoGlow.intensity = 1.2 + Math.sin(t * 12) * 0.25;
-            body.material.emissive = new THREE.Color(0x111111);
+            bladeGroup.rotation.x += 0.72;
+            bladeGroup.rotation.y += 0.06;
+            logoGlow.intensity = 1.4 + Math.sin(t * 14) * 0.35;
+            body.material.emissive = new THREE.Color(0x141414);
           } else {
-            bladeGroup.rotation.x += 0.12;
-            logoGlow.intensity = 0.7;
+            bladeGroup.rotation.x += 0.14;
+            bladeGroup.rotation.y *= 0.96;
+            logoGlow.intensity = 0.9;
             body.material.emissive = new THREE.Color(0x000000);
           }
 
           particles.forEach((p, i) => {
             if (step === 2) {
               p.visible = true;
-              const localT = (frame * 0.03 + i) % 20;
+              const localT = (frame * 0.045 + i * 0.45) % 20;
               p.position.set(
-                1.1 - localT * 0.12,
-                -0.95 + Math.sin(localT + i) * 0.12,
-                (Math.sin(localT * 1.7 + i) * 0.35)
+                1.15 - localT * 0.13,
+                -0.85 + Math.sin(localT + i) * 0.18,
+                Math.sin(localT * 1.6 + i) * 0.42
               );
             } else if (step === 3) {
               p.visible = true;
-              p.position.set(-3.3 + (Math.random() - 0.5) * 1.1, -1.0 + Math.random() * 0.45, (Math.random() - 0.5) * 0.9);
+              p.position.set(
+                -3.1 + (Math.random() - 0.5) * 1.35,
+                -0.78 + Math.random() * 0.52,
+                (Math.random() - 0.5) * 1.0
+              );
             } else {
               p.visible = false;
             }
           });
 
           if (step === 3) {
-            drawer.position.x = -2.45;
+            drawer.position.x = -2.35;
             leaves.forEach((leaf, i) => {
               leaf.visible = true;
               leaf.position.set(
-                -3.3 + Math.sin(t * 1.8 + i) * 0.6,
-                -0.15 + Math.cos(t * 2.4 + i) * 0.22,
-                Math.sin(i) * 0.45
+                -3.2 + Math.sin(t * 2 + i) * 0.72,
+                0.0 + Math.cos(t * 2.7 + i) * 0.26,
+                Math.sin(i * 1.5) * 0.52
               );
-              leaf.rotation.z += 0.01 + i * 0.0005;
+              leaf.rotation.z += 0.02 + i * 0.0005;
             });
           } else {
-            drawer.position.x += (-3.3 - drawer.position.x) * 0.08;
+            drawer.position.x += (-3.3 - drawer.position.x) * 0.09;
             leaves.forEach(leaf => leaf.visible = false);
           }
 
@@ -1094,14 +1062,19 @@
             <div className="legend">
               <h4>Simulação da máquina AgroTerra</h4>
               <p ref={statusRef}>
-                1. Coleta: as cascas e restos orgânicos entram pelo funil da máquina.
+                1. Coleta: as cascas e restos orgânicos entram pelo funil superior.
               </p>
             </div>
             <div className="step-indicator">
-              <div className="step-pill active">COLETA</div>
-              <div className="step-pill active">TRITURAÇÃO</div>
-              <div className="step-pill active">ADUBO</div>
-              <div className="step-pill active">PLANTIO</div>
+              {["COLETA", "TRITURAÇÃO", "ADUBO", "PLANTIO"].map((label, i) => (
+                <div
+                  key={label}
+                  ref={(el) => pillsRef.current[i] = el}
+                  className={`step-pill ${i === 0 ? 'active' : ''}`}
+                >
+                  {label}
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -1332,54 +1305,6 @@
           )
         },
         {
-          key: "explicacao",
-          render: () => (
-            <div className="slide-shell">
-              <div
-                className="fullscreen-bg"
-                style={{
-                  backgroundImage:
-                    "url('https://images.unsplash.com/photo-1523741543316-beb7fc7023d8?auto=format&fit=crop&w=1600&q=80')"
-                }}
-              ></div>
-              <div className="overlay-dark"></div>
-              <div className="content">
-                <div className="top-bar">
-                  <div className="badge">Como apresentar</div>
-                  <div className="badge">Explicação fácil</div>
-                </div>
-
-                <div style={{ margin: 'auto 0' }}>
-                  <div className="section-title">Forma simples de explicar para a turma</div>
-                  <div className="section-text">
-                    Se vocês quiserem apresentar de forma clara e organizada, podem dividir a fala em quatro partes:
-                  </div>
-
-                  <div className="help-box">
-                    <h4>Roteiro rápido para apresentação</h4>
-                    <ul>
-                      <li><strong>Parte 1:</strong> explicar o problema do desperdício de cascas e restos de alimentos.</li>
-                      <li><strong>Parte 2:</strong> mostrar a máquina e dizer que ela tritura os resíduos para virar adubo.</li>
-                      <li><strong>Parte 3:</strong> explicar que o adubo ajuda no plantio, melhora o solo e reduz o lixo.</li>
-                      <li><strong>Parte 4:</strong> concluir dizendo que o projeto une ciência, sustentabilidade, agricultura e empreendedorismo.</li>
-                    </ul>
-                  </div>
-
-                  <div className="help-box">
-                    <h4>Ideias para complementar o trabalho</h4>
-                    <ul>
-                      <li>Levar uma maquete simples da máquina feita com caixa de papelão.</li>
-                      <li>Levar um pote com restos orgânicos e outro com terra/adubo para mostrar o antes e depois.</li>
-                      <li>Montar uma pequena horta escolar ou um vaso com planta para representar o resultado do projeto.</li>
-                      <li>Criar embalagens fictícias do adubo AgroTerra para mostrar a ideia de venda.</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )
-        },
-        {
           key: "final",
           render: () => (
             <div className="slide-shell">
@@ -1464,11 +1389,7 @@
 
           <div className="footer-nav">
             <button className="nav-btn" onClick={prev}>‹</button>
-            <div className="dots">
-              {slides.map((_, i) => (
-                <div key={i} className={`dot ${i === slide ? 'active' : ''}`}></div>
-              ))}
-            </div>
+            <div className="nav-spacer"></div>
             <button className="nav-btn" onClick={next}>›</button>
           </div>
         </div>
