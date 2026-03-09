@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>AgroTerra - Apresentação 3D</title>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -14,10 +14,10 @@
       margin: 0;
       width: 100%;
       height: 100%;
-      overflow: hidden;
       font-family: Arial, Helvetica, sans-serif;
       background: #08140d;
       color: white;
+      overflow: hidden;
     }
 
     body {
@@ -31,6 +31,7 @@
       width: 100%;
       height: 100%;
       position: relative;
+      overflow: hidden;
     }
 
     .bg-layer {
@@ -60,6 +61,13 @@
       pointer-events: auto;
     }
 
+    .slide-shell {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
     .fullscreen-bg {
       position: absolute;
       inset: 0;
@@ -81,20 +89,25 @@
       z-index: 2;
       width: 100%;
       height: 100%;
-      padding: 40px 50px;
+      padding: 40px 50px 96px;
       display: flex;
       flex-direction: column;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
     }
 
     .hero-center {
       margin: auto;
       text-align: center;
       max-width: 1100px;
+      width: 100%;
     }
 
     .logo {
       width: min(34vw, 420px);
       max-width: 420px;
+      min-width: 180px;
       filter: drop-shadow(0 14px 34px rgba(0,0,0,0.45));
       animation: floatLogo 4s ease-in-out infinite;
     }
@@ -105,7 +118,7 @@
     }
 
     .title {
-      font-size: clamp(42px, 6vw, 82px);
+      font-size: clamp(32px, 6vw, 82px);
       font-weight: 900;
       line-height: 0.98;
       margin: 18px 0 16px;
@@ -113,7 +126,7 @@
     }
 
     .subtitle {
-      font-size: clamp(20px, 2.3vw, 34px);
+      font-size: clamp(18px, 2.3vw, 34px);
       color: #ffe082;
       font-weight: 700;
       margin-bottom: 20px;
@@ -121,7 +134,7 @@
     }
 
     .desc {
-      font-size: clamp(16px, 1.5vw, 23px);
+      font-size: clamp(15px, 1.5vw, 23px);
       line-height: 1.6;
       color: rgba(255,255,255,0.92);
       max-width: 980px;
@@ -161,6 +174,8 @@
       background: rgba(0,0,0,0.14);
       text-align: left;
       color: rgba(255,255,255,0.84);
+      min-width: 0;
+      word-break: break-word;
     }
 
     .top-bar {
@@ -168,6 +183,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 20px;
+      flex-wrap: wrap;
     }
 
     .badge {
@@ -177,16 +193,17 @@
       border: 1px solid rgba(255,255,255,0.12);
       font-weight: 700;
       color: #dcedc8;
+      text-align: center;
     }
 
     .section-title {
-      font-size: clamp(32px, 4vw, 58px);
+      font-size: clamp(28px, 4vw, 58px);
       font-weight: 900;
       margin: 18px 0 10px;
     }
 
     .section-text {
-      font-size: clamp(17px, 1.5vw, 24px);
+      font-size: clamp(15px, 1.5vw, 24px);
       line-height: 1.6;
       color: rgba(255,255,255,0.92);
       max-width: 920px;
@@ -198,7 +215,8 @@
       gap: 28px;
       align-items: center;
       width: 100%;
-      height: 100%;
+      min-height: 0;
+      flex: 1;
     }
 
     .cards {
@@ -215,11 +233,12 @@
       padding: 22px;
       box-shadow: 0 16px 45px rgba(0,0,0,0.24);
       backdrop-filter: blur(8px);
+      min-width: 0;
     }
 
     .card h3 {
       margin: 0 0 10px;
-      font-size: 24px;
+      font-size: clamp(20px, 2vw, 24px);
       color: #fff59d;
     }
 
@@ -227,7 +246,7 @@
       margin: 0;
       color: rgba(255,255,255,0.9);
       line-height: 1.55;
-      font-size: 17px;
+      font-size: clamp(15px, 1.3vw, 17px);
     }
 
     .machine-stage {
@@ -253,8 +272,10 @@
       display: flex;
       justify-content: space-between;
       align-items: end;
+      gap: 14px;
       z-index: 2;
       pointer-events: none;
+      flex-wrap: wrap;
     }
 
     .legend {
@@ -283,6 +304,8 @@
       display: flex;
       gap: 10px;
       align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .step-pill {
@@ -293,6 +316,7 @@
       background: rgba(255,255,255,0.08);
       color: rgba(255,255,255,0.7);
       border: 1px solid rgba(255,255,255,0.08);
+      white-space: nowrap;
     }
 
     .step-pill.active {
@@ -313,6 +337,7 @@
       border-radius: 22px;
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.12);
+      min-width: 0;
     }
 
     .process-item .num {
@@ -328,7 +353,7 @@
 
     .process-item h4 {
       margin: 0 0 8px;
-      font-size: 21px;
+      font-size: clamp(18px, 1.6vw, 21px);
       color: #fff59d;
     }
 
@@ -336,6 +361,7 @@
       margin: 0;
       line-height: 1.5;
       color: rgba(255,255,255,0.9);
+      font-size: clamp(14px, 1.2vw, 16px);
     }
 
     .benefits {
@@ -351,17 +377,18 @@
       background: rgba(255,255,255,0.08);
       border: 1px solid rgba(255,255,255,0.12);
       box-shadow: 0 16px 45px rgba(0,0,0,0.24);
+      min-width: 0;
     }
 
     .benefit h3 {
       margin: 0 0 10px;
       color: #b8f28a;
-      font-size: 24px;
+      font-size: clamp(20px, 2vw, 24px);
     }
 
     .benefit p {
       margin: 0;
-      font-size: 17px;
+      font-size: clamp(15px, 1.3vw, 17px);
       line-height: 1.6;
       color: rgba(255,255,255,0.92);
     }
@@ -370,11 +397,17 @@
       position: absolute;
       left: 28px;
       right: 28px;
-      bottom: 18px;
+      bottom: max(18px, env(safe-area-inset-bottom));
       z-index: 5;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 16px;
+      pointer-events: none;
+    }
+
+    .footer-nav > * {
+      pointer-events: auto;
     }
 
     .nav-btn {
@@ -390,6 +423,7 @@
       font-weight: bold;
       transition: 0.25s ease;
       backdrop-filter: blur(10px);
+      touch-action: manipulation;
     }
 
     .nav-btn:hover {
@@ -400,6 +434,8 @@
     .dots {
       display: flex;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .dot {
@@ -428,18 +464,18 @@
     .help-box h4 {
       margin: 0 0 10px;
       color: #fff59d;
-      font-size: 22px;
+      font-size: clamp(20px, 2vw, 22px);
     }
 
     .help-box ul {
       margin: 0;
       padding-left: 22px;
       line-height: 1.7;
-      font-size: 17px;
+      font-size: clamp(15px, 1.3vw, 17px);
     }
 
     .final-quote {
-      font-size: clamp(34px, 4.5vw, 68px);
+      font-size: clamp(28px, 4.5vw, 68px);
       font-weight: 900;
       line-height: 1.08;
       text-align: center;
@@ -451,7 +487,7 @@
       text-align: center;
       margin-top: 18px;
       color: rgba(255,255,255,0.86);
-      font-size: 20px;
+      font-size: clamp(17px, 2vw, 20px);
     }
 
     .shine {
@@ -472,12 +508,206 @@
       .grid-2 {
         grid-template-columns: 1fr;
         gap: 18px;
-        padding-bottom: 90px;
+        padding-bottom: 10px;
       }
-      .process-list, .benefits, .cards, .team-placeholders {
+
+      .process-list,
+      .benefits,
+      .cards,
+      .team-placeholders {
         grid-template-columns: 1fr;
       }
-      .legend { max-width: 100%; }
+
+      .legend {
+        max-width: 100%;
+      }
+
+      .machine-stage {
+        min-height: 360px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      html, body, #root, .app {
+        height: 100dvh;
+      }
+
+      .content {
+        padding: 18px 16px 88px;
+      }
+
+      .top-bar {
+        gap: 10px;
+        justify-content: center;
+      }
+
+      .badge {
+        width: 100%;
+        padding: 10px 14px;
+        font-size: 14px;
+      }
+
+      .hero-center {
+        margin: 0 auto;
+        padding-top: 10px;
+        padding-bottom: 10px;
+      }
+
+      .logo {
+        width: min(70vw, 320px);
+        min-width: 140px;
+      }
+
+      .team-box {
+        width: 100%;
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .machine-stage {
+        min-height: 320px;
+        height: 48vh;
+        max-height: 520px;
+        border-radius: 22px;
+      }
+
+      .machine-overlay {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        gap: 10px;
+      }
+
+      .legend {
+        padding: 12px;
+        border-radius: 14px;
+      }
+
+      .legend h4 {
+        font-size: 15px;
+      }
+
+      .legend p {
+        font-size: 13px;
+      }
+
+      .step-indicator {
+        gap: 6px;
+        justify-content: flex-start;
+      }
+
+      .step-pill {
+        font-size: 11px;
+        padding: 8px 10px;
+      }
+
+      .process-item,
+      .card,
+      .benefit,
+      .help-box {
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .footer-nav {
+        left: 12px;
+        right: 12px;
+        bottom: max(10px, env(safe-area-inset-bottom));
+      }
+
+      .nav-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 22px;
+      }
+
+      .dot {
+        width: 10px;
+        height: 10px;
+      }
+
+      .dot.active {
+        width: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .content {
+        padding: 14px 12px 84px;
+      }
+
+      .title {
+        margin-top: 12px;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        margin-bottom: 14px;
+      }
+
+      .team-title {
+        font-size: 17px;
+      }
+
+      .placeholder {
+        font-size: 14px;
+        padding: 10px 12px;
+      }
+
+      .machine-stage {
+        min-height: 280px;
+        height: 42vh;
+      }
+
+      .legend {
+        width: 100%;
+      }
+
+      .step-indicator {
+        width: 100%;
+      }
+
+      .footer-nav {
+        gap: 10px;
+      }
+    }
+
+    @media (max-height: 700px) and (orientation: landscape) {
+      .content {
+        padding-top: 14px;
+        padding-bottom: 76px;
+      }
+
+      .logo {
+        width: min(24vw, 220px);
+      }
+
+      .machine-stage {
+        min-height: 260px;
+        height: 56vh;
+      }
+
+      .title {
+        font-size: clamp(26px, 4vw, 54px);
+      }
+
+      .subtitle {
+        font-size: clamp(15px, 2vw, 24px);
+      }
+
+      .desc,
+      .section-text {
+        font-size: 14px;
+        line-height: 1.45;
+      }
+
+      .team-box,
+      .card,
+      .benefit,
+      .help-box,
+      .process-item {
+        padding: 14px;
+      }
     }
   </style>
 </head>
@@ -507,7 +737,7 @@
         camera.position.set(0, 3, 12);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.shadowMap.enabled = true;
         container.appendChild(renderer.domElement);
@@ -772,7 +1002,6 @@
 
           updateStatus(step);
 
-          // Step 1 - fruits falling
           fruits.forEach((fruit, i) => {
             if (step === 0) {
               fruit.visible = true;
@@ -789,7 +1018,6 @@
             }
           });
 
-          // Step 2 - blades spinning strong
           if (step === 1) {
             bladeGroup.rotation.x += 0.58;
             logoGlow.intensity = 1.2 + Math.sin(t * 12) * 0.25;
@@ -800,7 +1028,6 @@
             body.material.emissive = new THREE.Color(0x000000);
           }
 
-          // Step 3 - compost particles inside / around output
           particles.forEach((p, i) => {
             if (step === 2) {
               p.visible = true;
@@ -812,14 +1039,12 @@
               );
             } else if (step === 3) {
               p.visible = true;
-              const spread = (i % 15) * 0.07;
               p.position.set(-3.3 + (Math.random() - 0.5) * 1.1, -1.0 + Math.random() * 0.45, (Math.random() - 0.5) * 0.9);
             } else {
               p.visible = false;
             }
           });
 
-          // Step 4 - leaves and open drawer
           if (step === 3) {
             drawer.position.x = -2.45;
             leaves.forEach((leaf, i) => {
@@ -848,6 +1073,7 @@
           camera.updateProjectionMatrix();
           renderer.setSize(container.clientWidth, container.clientHeight);
         };
+
         window.addEventListener('resize', handleResize);
 
         return () => {
@@ -884,12 +1110,14 @@
 
     function App() {
       const [slide, setSlide] = useState(0);
+      const touchStartX = useRef(null);
+      const touchEndX = useRef(null);
 
       const slides = [
         {
           key: "capa",
           render: () => (
-            <div className="slide active">
+            <div className="slide-shell">
               <div
                 className="fullscreen-bg"
                 style={{
@@ -921,7 +1149,7 @@
                   <div className="team-box">
                     <div className="team-title">Integrantes do grupo</div>
                     <div className="team-placeholders">
-<div className="placeholder">Theo Viana de Miranda</div>
+                      <div className="placeholder">Theo Viana de Miranda</div>
                       <div className="placeholder">Emanuel Rafael Pontes</div>
                       <div className="placeholder">Eva Maria Pinheiro Cisneros</div>
                       <div className="placeholder">Vinicius</div>
@@ -936,7 +1164,7 @@
         {
           key: "problema",
           render: () => (
-            <div className="slide active">
+            <div className="slide-shell">
               <div
                 className="fullscreen-bg"
                 style={{
@@ -997,7 +1225,7 @@
         {
           key: "maquina3d",
           render: () => (
-            <div className="slide active">
+            <div className="slide-shell">
               <div className="content">
                 <div className="top-bar">
                   <div className="badge">Demonstração em 3D</div>
@@ -1046,7 +1274,7 @@
         {
           key: "beneficios",
           render: () => (
-            <div className="slide active">
+            <div className="slide-shell">
               <div
                 className="fullscreen-bg"
                 style={{
@@ -1106,7 +1334,7 @@
         {
           key: "explicacao",
           render: () => (
-            <div className="slide active">
+            <div className="slide-shell">
               <div
                 className="fullscreen-bg"
                 style={{
@@ -1154,7 +1382,7 @@
         {
           key: "final",
           render: () => (
-            <div className="slide active">
+            <div className="slide-shell">
               <div
                 className="fullscreen-bg"
                 style={{
@@ -1208,8 +1436,24 @@
         return () => window.removeEventListener('keydown', onKey);
       }, []);
 
+      const onTouchStart = (e) => {
+        touchStartX.current = e.changedTouches[0].clientX;
+      };
+
+      const onTouchEnd = (e) => {
+        touchEndX.current = e.changedTouches[0].clientX;
+        if (touchStartX.current == null || touchEndX.current == null) return;
+        const diff = touchStartX.current - touchEndX.current;
+        if (Math.abs(diff) > 60) {
+          if (diff > 0) next();
+          else prev();
+        }
+        touchStartX.current = null;
+        touchEndX.current = null;
+      };
+
       return (
-        <div className="app">
+        <div className="app" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
           <div className="bg-layer"></div>
 
           {slides.map((item, index) => (
